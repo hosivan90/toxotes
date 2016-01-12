@@ -16,6 +16,8 @@ $(function() {
 
     });
 
+
+
     $('.tool-pin, .tool-unpin').on('click', function(e) {
         event.preventDefault();
         var e = $(this);
