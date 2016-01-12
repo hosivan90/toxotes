@@ -134,6 +134,7 @@ class Category extends CMSBackendBase {
         if ($this->request()->isPostRequest()) {
             //assign $inputTerm value
             $inputs = $this->request()->post('term', 'ARRAY', array());
+//            var_dump($inputs);exit;
             foreach ($inputs as $input=>$value) {
                 $inputTerm->$input = $value;
             }
