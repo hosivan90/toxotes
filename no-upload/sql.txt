@@ -1,2 +1,6 @@
 ALTER TABLE `terms` ADD `allow_search` ENUM("ALLOW", "NOT_ALLOW") CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ALLOW' AFTER `status`;
 
+ALTER TABLE `posts` ADD `allow_search` ENUM("ALLOW", "NOT_ALLOW") CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ALLOW' AFTER `status`;
+
+
+ALTER TABLE `posts` ADD `allow_search_type` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'PARENT' AFTER `status`;

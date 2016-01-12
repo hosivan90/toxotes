@@ -167,9 +167,12 @@ class Post extends CMSBackendBase {
         $this->document()->addJsVar('img_set_main_url', $this->createUrl('post_img/make_star'));
         $this->document()->addJsVar('img_update_url', $this->createUrl('post_img/update'));
 
+        $term = \Terms::retrieveById($post->getTermId());
+
         $this->setView('Post/form');
         $this->view()->assign(array(
             'post' => $post,
+            'term' => $term,
             'taxonomy' => $taxonomy,
             'error' => $error,
             'page_title' => t('Edit ' .$post->getTitle())

@@ -1,6 +1,7 @@
 <?php
 /** @var \Flywheel\View\Render $this */
 /** @var Posts $post */
+/** @var Terms $term */
 /** @var PostImages[] $postImages */
 /** @var PostAttachments[] $postAttachments */
 
@@ -212,6 +213,43 @@ $taxonomy = ($taxonomy)? $taxonomy : 'post';
                         <?php endif; ?>
                     </div>
                 </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="control-label"><?php td('Setting allow search') ;?></label>
+                    <div class="controls">
+
+                        <?php
+                        $statusOpt = $form->selectOption('posts[allow_search_type]', $post->getAllowSearchType(), [
+                            'class' => 'form-control'
+                        ])
+                            ->addOption("Theo danh mục cha", 'PARENT', array("data-value" => ""))
+                            ->addOption("Tùy chỉnh", 'CUSTOM', array("data-value" => ""));
+
+                        $statusOpt = Plugin::applyFilters('custom_' .$taxonomy .'_status_options', $statusOpt);
+                        $statusOpt->display();
+                        ?>
+
+                    </div>
+                </div>
+
+                <div id="_panel-allow-search" class="form-group" style="<?= $post->getAllowSearchType() == "PARENT" ? " display:none; " : " display: block; " ?>">
+                    <label class="control-label"></label>
+                    <div class="controls">
+
+                        <?php
+
+                        $form->radioButton('posts[allow_search]', $post->getAllowSearch())
+                            ->add("ALLOW", t('Yes'), array('class' => 'inline'))
+                            ->add("NOT_ALLOW", t('No'), array('class' => 'inline'))
+                            ->display();
+
+                        ?>
+
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
     </div>

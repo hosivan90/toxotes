@@ -1,6 +1,21 @@
 $(function() {
     PostForm.init();
 
+    $(document).on("change", "select[name='posts[allow_search_type]']", function(){
+        var type = $(this).val();
+        if(type){
+            switch (type.toUpperCase()){
+                case "PARENT":
+                    $("#_panel-allow-search").hide();
+                    break;
+                case "CUSTOM":
+                    $("#_panel-allow-search").show();
+                    break;
+            }
+        }
+
+    });
+
     $('.tool-pin, .tool-unpin').on('click', function(e) {
         event.preventDefault();
         var e = $(this);
