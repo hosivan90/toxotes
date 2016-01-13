@@ -3,7 +3,7 @@
         <?php if ($pagination->showTotalPage) :?>
             <span><?php echo $pagination->total?> <?php echo $pagination->items ?> / <?php echo $pagination->totalPage ?> <?php td('pages'); ?></span>
         <?php endif; ?>
-        <ul class="paging">
+        <ul class="pagination">
             <?php if ($pagination->currentPage != 1) :?>
                 <li><a href="<?php echo $pagination->createLink(1); ?>">&laquo; <?php td('First'); ?></a></li>
             <?php endif; ?>
