@@ -280,10 +280,13 @@ class Post extends CMSBackendBase {
 
         $input = $this->request()->post('post', 'ARRAY', array());
 
-        if($post->getAllowSearchType() == "PARENT"){
-            if(isset($input["allow_search"])){
-                $term = \Terms::retrieveById($post->getTermId());
-                $input["allow_search"] = $term->getAllowSearch();
+        if(isset($input["allow_search_type"]) && $input["allow_search_type"] == "PARENT"){
+
+            if(isset($input["allow_search"]) && isset($input["term_id"])){
+                $term = \Terms::retrieveById($input["term_id"]);
+                if($term instanceof \Terms){
+                    $input["allow_search"] = $term->getAllowSearch();
+                }
             }
         }
 
