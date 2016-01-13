@@ -247,7 +247,12 @@ $taxonomy = ($taxonomy)? $taxonomy : 'post';
                     </div>
                 </div>
 
-
+                <div class="form-group">
+                    <label class="control-label"><?php td('Tags') ;?></label>
+                    <div class="controls">
+                        <input type="text" name="post[tags]" id="textfield" class="tagsinput form-control" value="<?php echo $post->getTags() ?>" />
+                    </div>
+                </div>
 
             </div>
         </div>

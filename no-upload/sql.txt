@@ -4,3 +4,6 @@ ALTER TABLE `posts` ADD `allow_search` ENUM("ALLOW", "NOT_ALLOW") CHARACTER SET 
 
 
 ALTER TABLE `posts` ADD `allow_search_type` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'PARENT' AFTER `status`;
+
+
+ALTER TABLE `posts` ADD `tags` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' AFTER `excerpt`;

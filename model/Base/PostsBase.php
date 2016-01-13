@@ -11,6 +11,7 @@ use Flywheel\Model\ActiveRecord;
  * @property integer $term_id term_id type : int(11)
  * @property string $slug slug type : varchar(255) max_length : 255
  * @property string $excerpt excerpt type : text max_length : 
+ * @property string $tags tags type : tinytext max_length : 
  * @property string $content content type : text max_length : 
  * @property string $status status type : varchar(20) max_length : 20
  * @property string $allow_search_type allow_search_type type : varchar(10) max_length : 10
@@ -55,6 +56,12 @@ use Flywheel\Model\ActiveRecord;
  * @method static \Posts[] findByExcerpt(string $excerpt) find objects in database by excerpt
  * @method static \Posts findOneByExcerpt(string $excerpt) find object in database by excerpt
  * @method static \Posts retrieveByExcerpt(string $excerpt) retrieve object from poll by excerpt, get it from db if not exist in poll
+
+ * @method void setTags(string $tags) set tags value
+ * @method string getTags() get tags value
+ * @method static \Posts[] findByTags(string $tags) find objects in database by tags
+ * @method static \Posts findOneByTags(string $tags) find object in database by tags
+ * @method static \Posts retrieveByTags(string $tags) retrieve object from poll by tags, get it from db if not exist in poll
 
  * @method void setContent(string $content) set content value
  * @method string getContent() get content value
@@ -177,6 +184,10 @@ abstract class PostsBase extends ActiveRecord {
                 'not_null' => false,
                 'type' => 'string',
                 'db_type' => 'text'),
+        'tags' => array('name' => 'tags',
+                'not_null' => true,
+                'type' => 'string',
+                'db_type' => 'tinytext'),
         'content' => array('name' => 'content',
                 'not_null' => false,
                 'type' => 'string',
@@ -276,7 +287,7 @@ abstract class PostsBase extends ActiveRecord {
         ),
     );
     protected static $_init = false;
-    protected static $_cols = array('id','title','term_id','slug','excerpt','content','status','allow_search_type','allow_search','is_draft','author','taxonomy','language','ordering','hits','is_pin','modified_time','created_time','publish_time');
+    protected static $_cols = array('id','title','term_id','slug','excerpt','tags','content','status','allow_search_type','allow_search','is_draft','author','taxonomy','language','ordering','hits','is_pin','modified_time','created_time','publish_time');
 
     public function setTableDefinition() {
     }
