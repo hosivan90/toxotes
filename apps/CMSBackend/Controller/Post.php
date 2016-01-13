@@ -279,6 +279,14 @@ class Post extends CMSBackendBase {
         $isDraft = $post->getIsDraft();
 
         $input = $this->request()->post('post', 'ARRAY', array());
+
+        if($post->getAllowSearchType() == "PARENT"){
+            if(isset($input["allow_search"])){
+                $term = \Terms::retrieveById($post->getTermId());
+                $input["allow_search"] = $term->getAllowSearch();
+            }
+        }
+
         $post->hydrate($input);
         $post->setExcerpt(nl2br($post->getExcerpt()));
         $post->setIsDraft(false);

@@ -219,14 +219,13 @@ $taxonomy = ($taxonomy)? $taxonomy : 'post';
                     <div class="controls">
 
                         <?php
-                        $statusOpt = $form->selectOption('posts[allow_search_type]', $post->getAllowSearchType(), [
+                        $allowSearchTypeOpt = $form->selectOption('post[allow_search_type]', $post->getAllowSearchType(), [
                             'class' => 'form-control'
                         ])
                             ->addOption("Theo danh mục cha", 'PARENT', array("data-value" => ""))
                             ->addOption("Tùy chỉnh", 'CUSTOM', array("data-value" => ""));
 
-                        $statusOpt = Plugin::applyFilters('custom_' .$taxonomy .'_status_options', $statusOpt);
-                        $statusOpt->display();
+                        $allowSearchTypeOpt->display();
                         ?>
 
                     </div>
@@ -238,7 +237,7 @@ $taxonomy = ($taxonomy)? $taxonomy : 'post';
 
                         <?php
 
-                        $form->radioButton('posts[allow_search]', $post->getAllowSearch())
+                        $form->radioButton('post[allow_search]', $post->getAllowSearch())
                             ->add("ALLOW", t('Yes'), array('class' => 'inline'))
                             ->add("NOT_ALLOW", t('No'), array('class' => 'inline'))
                             ->display();

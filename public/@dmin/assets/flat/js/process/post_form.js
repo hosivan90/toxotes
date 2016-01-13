@@ -1,7 +1,7 @@
 $(function() {
     PostForm.init();
 
-    $(document).on("change", "select[name='posts[allow_search_type]']", function(){
+    $(document).on("change", "select[name='post[allow_search_type]']", function(){
         var type = $(this).val();
         if(type){
             switch (type.toUpperCase()){

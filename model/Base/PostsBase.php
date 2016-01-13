@@ -13,6 +13,8 @@ use Flywheel\Model\ActiveRecord;
  * @property string $excerpt excerpt type : text max_length : 
  * @property string $content content type : text max_length : 
  * @property string $status status type : varchar(20) max_length : 20
+ * @property string $allow_search_type allow_search_type type : varchar(10) max_length : 10
+ * @property string $allow_search allow_search type : enum('ALLOW','NOT_ALLOW') max_length : 9
  * @property integer $is_draft is_draft type : tinyint(1)
  * @property string $author author type : varchar(255) max_length : 255
  * @property string $taxonomy taxonomy type : varchar(100) max_length : 100
@@ -65,6 +67,18 @@ use Flywheel\Model\ActiveRecord;
  * @method static \Posts[] findByStatus(string $status) find objects in database by status
  * @method static \Posts findOneByStatus(string $status) find object in database by status
  * @method static \Posts retrieveByStatus(string $status) retrieve object from poll by status, get it from db if not exist in poll
+
+ * @method void setAllowSearchType(string $allow_search_type) set allow_search_type value
+ * @method string getAllowSearchType() get allow_search_type value
+ * @method static \Posts[] findByAllowSearchType(string $allow_search_type) find objects in database by allow_search_type
+ * @method static \Posts findOneByAllowSearchType(string $allow_search_type) find object in database by allow_search_type
+ * @method static \Posts retrieveByAllowSearchType(string $allow_search_type) retrieve object from poll by allow_search_type, get it from db if not exist in poll
+
+ * @method void setAllowSearch(string $allow_search) set allow_search value
+ * @method string getAllowSearch() get allow_search value
+ * @method static \Posts[] findByAllowSearch(string $allow_search) find objects in database by allow_search
+ * @method static \Posts findOneByAllowSearch(string $allow_search) find object in database by allow_search
+ * @method static \Posts retrieveByAllowSearch(string $allow_search) retrieve object from poll by allow_search, get it from db if not exist in poll
 
  * @method void setIsDraft(integer $is_draft) set is_draft value
  * @method integer getIsDraft() get is_draft value
@@ -173,6 +187,18 @@ abstract class PostsBase extends ActiveRecord {
                 'type' => 'string',
                 'db_type' => 'varchar(20)',
                 'length' => 20),
+        'allow_search_type' => array('name' => 'allow_search_type',
+                'default' => 'PARENT',
+                'not_null' => true,
+                'type' => 'string',
+                'db_type' => 'varchar(10)',
+                'length' => 10),
+        'allow_search' => array('name' => 'allow_search',
+                'default' => 'ALLOW',
+                'not_null' => true,
+                'type' => 'string',
+                'db_type' => 'enum(\'ALLOW\',\'NOT_ALLOW\')',
+                'length' => 9),
         'is_draft' => array('name' => 'is_draft',
                 'default' => 0,
                 'not_null' => true,
@@ -234,11 +260,23 @@ abstract class PostsBase extends ActiveRecord {
                 'db_type' => 'datetime'),
      );
     protected static $_validate = array(
+        'allow_search' => array(
+            array('name' => 'ValidValues',
+                'value' => 'ALLOW|NOT_ALLOW',
+                'message'=> 'allow search\'s values is not allowed'
+            ),
+        ),
     );
     protected static $_validatorRules = array(
+        'allow_search' => array(
+            array('name' => 'ValidValues',
+                'value' => 'ALLOW|NOT_ALLOW',
+                'message'=> 'allow search\'s values is not allowed'
+            ),
+        ),
     );
     protected static $_init = false;
-    protected static $_cols = array('id','title','term_id','slug','excerpt','content','status','is_draft','author','taxonomy','language','ordering','hits','is_pin','modified_time','created_time','publish_time');
+    protected static $_cols = array('id','title','term_id','slug','excerpt','content','status','allow_search_type','allow_search','is_draft','author','taxonomy','language','ordering','hits','is_pin','modified_time','created_time','publish_time');
 
     public function setTableDefinition() {
     }

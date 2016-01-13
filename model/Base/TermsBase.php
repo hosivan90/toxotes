@@ -9,6 +9,7 @@ use Flywheel\Model\ActiveRecord;
  * @property integer $id id primary auto_increment type : int(11) unsigned
  * @property string $name name type : varchar(255) max_length : 255
  * @property string $status status type : enum('ACTIVE','INACTIVE') max_length : 8
+ * @property string $allow_search allow_search type : enum('ALLOW','NOT_ALLOW') max_length : 9
  * @property string $slug slug type : varchar(255) max_length : 255
  * @property string $taxonomy taxonomy type : varchar(100) max_length : 100
  * @property string $description description type : text max_length : 
@@ -37,6 +38,12 @@ use Flywheel\Model\ActiveRecord;
  * @method static \Terms[] findByStatus(string $status) find objects in database by status
  * @method static \Terms findOneByStatus(string $status) find object in database by status
  * @method static \Terms retrieveByStatus(string $status) retrieve object from poll by status, get it from db if not exist in poll
+
+ * @method void setAllowSearch(string $allow_search) set allow_search value
+ * @method string getAllowSearch() get allow_search value
+ * @method static \Terms[] findByAllowSearch(string $allow_search) find objects in database by allow_search
+ * @method static \Terms findOneByAllowSearch(string $allow_search) find object in database by allow_search
+ * @method static \Terms retrieveByAllowSearch(string $allow_search) retrieve object from poll by allow_search, get it from db if not exist in poll
 
  * @method void setSlug(string $slug) set slug value
  * @method string getSlug() get slug value
@@ -126,6 +133,12 @@ abstract class TermsBase extends ActiveRecord {
                 'type' => 'string',
                 'db_type' => 'enum(\'ACTIVE\',\'INACTIVE\')',
                 'length' => 8),
+        'allow_search' => array('name' => 'allow_search',
+                'default' => 'ALLOW',
+                'not_null' => true,
+                'type' => 'string',
+                'db_type' => 'enum(\'ALLOW\',\'NOT_ALLOW\')',
+                'length' => 9),
         'slug' => array('name' => 'slug',
                 'not_null' => false,
                 'type' => 'string',
@@ -189,6 +202,12 @@ abstract class TermsBase extends ActiveRecord {
                 'message'=> 'status\'s values is not allowed'
             ),
         ),
+        'allow_search' => array(
+            array('name' => 'ValidValues',
+                'value' => 'ALLOW|NOT_ALLOW',
+                'message'=> 'allow search\'s values is not allowed'
+            ),
+        ),
     );
     protected static $_validatorRules = array(
         'status' => array(
@@ -197,9 +216,15 @@ abstract class TermsBase extends ActiveRecord {
                 'message'=> 'status\'s values is not allowed'
             ),
         ),
+        'allow_search' => array(
+            array('name' => 'ValidValues',
+                'value' => 'ALLOW|NOT_ALLOW',
+                'message'=> 'allow search\'s values is not allowed'
+            ),
+        ),
     );
     protected static $_init = false;
-    protected static $_cols = array('id','name','status','slug','taxonomy','description','language','count','scope','parent_id','lft','rgt','lvl');
+    protected static $_cols = array('id','name','status','allow_search','slug','taxonomy','description','language','count','scope','parent_id','lft','rgt','lvl');
 
     public function setTableDefinition() {
     }
