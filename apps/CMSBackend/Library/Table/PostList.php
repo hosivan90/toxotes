@@ -83,6 +83,9 @@ class PostList extends BaseList {
                 $s .= '<label><input class="check-all" type="checkbox"> &darr;</label>';
             } else {
                 $s .= $column['label'];
+                if($column['label']){
+//                    $s .= " <i class='fa fa-sort'></i>";
+                }
             }
 
             $s.=  '</th>';
@@ -265,6 +268,9 @@ class PostList extends BaseList {
                 $s .= '<label><input class="check-all" type="checkbox"> &uarr;</label>';
             } else {
                 $s .= $column['label'];
+                if($column['label']){
+//                    $s .= " <i class='fa fa-sort'></i>";
+                }
             }
 
             $s.=  '</th>';
