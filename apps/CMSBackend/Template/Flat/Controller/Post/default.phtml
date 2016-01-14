@@ -10,7 +10,7 @@ $filter = array_merge(array(
 ), $filter);
 
 $this->document()->addCss('css/post.css');
-$this->document()->addJs('js/post.js');
+$this->document()->addJs('js/process/post.js');
 
 ?>
 
@@ -125,7 +125,28 @@ $postForm->beginForm();
         <div class="box">
             <div class="box-content nopadding">
                 <div class="pull-left" style="padding: 20px 0;">
-                    <button class="btn btn-success" id="_save-ordering"><i class="icon-list-ol"></i> <?php td('Save ordering'); ?></button>
+
+                    <div class="btn-group">
+                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><?php td('Action'); ?>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="_btn-action">
+                            <li>
+
+                                <a href="javascript:void(0);" data-action="ordering" data-confirm="0"><?php td('Save ordering'); ?></a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0);" data-action="publish" data-confirm="0"><?php td('Publish/Unpublish'); ?></a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0);" data-action="delete" data-confirm="1"><?php td('Delete'); ?></a>
+                            </li>
+                        </ul>
+                        <input type="hidden" name="action" value="" />
+                    </div>
+
                 </div>
                 <div class="pull-right">
                     <?php

@@ -16,12 +16,46 @@ class Post extends CMSBackendBase {
         $page_title = Plugin::getTaxonomyOption($taxonomy, 'post', 'label', t('Post Management'));
 
         if ($this->request()->isPostRequest()) {
+            //save ordering
             $ordering = $this->request()->post('ordering', 'ARRAY', array());
             foreach ($ordering as $id => $value) {
                 $_p = \Posts::retrieveById($id);
                 if ($_p) {
                     $_p->setOrdering($value);
                     $_p->save();
+                }
+            }
+
+            //action
+            $action = $this->request()->post('action', 'STRING', "");
+            $bulk_actions = $this->request()->post('bulk_actions', 'ARRAY', array());
+
+            if($action){
+                foreach($bulk_actions as $id){
+                    if($id){
+                        $__p = \Posts::retrieveById($id);
+                        if(!$__p instanceof \Posts) continue;
+
+                        switch(strtolower($action)){
+                            case "ordering";
+                                //todo
+                                break;
+                            case "publish";
+
+                                $__s = $__p->getStatus() == "PUBLISH" ? "UNPUBLISH" : "PUBLISH";
+                                $__p->setStatus($__s);
+                                $__p->save();
+
+                                break;
+                            case "delete";
+
+                                $__p->delete();
+
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
         }
