@@ -84,7 +84,8 @@ class PostList extends BaseList {
             } else {
                 $s .= $column['label'];
                 if($column['label']){
-//                    $s .= " <i class='fa fa-sort'></i>";
+//                    $s .= " <i class='fa fa-sort _sort' data-name='{$name}'></i>";
+//                    $s .= "<input type='hidden' name='sort[{$name}]' value='' />";
                 }
             }
 
@@ -269,7 +270,7 @@ class PostList extends BaseList {
             } else {
                 $s .= $column['label'];
                 if($column['label']){
-//                    $s .= " <i class='fa fa-sort'></i>";
+//                    $s .= " <i class='fa fa-sort _sort' data-name='{$name}'></i>";
                 }
             }
 
